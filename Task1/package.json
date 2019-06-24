@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "invertString": "node src/invertString.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version"
   },
