@@ -1,0 +1,31 @@
+{
+  "name": "Task1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "standard-version"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^2.4.1",
+    "nodemon": "^1.19.1",
+    "standard-version": "^6.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": ""
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
