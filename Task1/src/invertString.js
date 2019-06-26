@@ -1,14 +1,18 @@
-var stdin = process.openStdin();
-var stdout = process.stdout;
+const stdin = process.stdin;
+const stdout = process.stdout;
 
 function invertString(origin) {
-    var result = origin.split("").reverse().join("");
+    const result = origin.split('').reverse().join('');
     return result;
 }
 
-stdin.addListener("data", function(input) {
-    var str = input.toString().trim();
-    var output = invertString(str);
+stdin.on('data', (input) => {
+    const str = input.toString().trim();
+    const output = invertString(str);
     stdout.write(output);
     stdout.write('\r\n');
 });
+
+stdin.on('error', () => {
+    stdout.write('Something went wrong');
+})
