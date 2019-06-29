@@ -5,20 +5,14 @@
   "main": "index.js",
   "scripts": {
     "invertString": "nodemon src/invertString.js",
+    "csvToTxt": "nodemon src/csvToTxt.js",
+    "csvToTxt-pipeline": "nodemon src/csvToTxtPipeline.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@commitlint/cli": "^8.0.0",
-    "@commitlint/config-conventional": "^8.0.0",
-    "cz-conventional-changelog": "^2.1.0",
-    "husky": "^2.4.1",
-    "nodemon": "^1.19.1",
-    "standard-version": "^6.0.1"
-  },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
@@ -28,5 +22,17 @@
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "through2": "^3.0.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^2.4.1",
+    "nodemon": "^1.19.1",
+    "standard-version": "^6.0.1"
   }
 }
