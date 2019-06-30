@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "invertString": "nodemon --exec babel-node src/invertString.js",
-    "csvToTxt": "nodemon src/csvToTxt.js",
-    "csvToTxt-pipeline": "nodemon src/csvToTxtPipeline.js",
+    "csvToTxt": "nodemon --exec babel-node src/csvToTxt.js",
+    "csvToTxt-pipeline": "nodemon --exec babel-node src/csvToTxtPipeline.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version"
   },
