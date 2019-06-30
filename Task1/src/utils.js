@@ -7,14 +7,14 @@ const keysToLowerCase = (obj) => {
             return acc;
         }, {});
 };
-const propertyToRemove = 'Amount';
 
 
 export const transformRow = _obj((chunk, enc, callback) => {
     const jsonRow = chunk.toString();
     const objRow = JSON.parse(jsonRow);
-    delete objRow[propertyToRemove];
     const loweredKeysObj = keysToLowerCase(objRow);
     const result = `${JSON.stringify(loweredKeysObj)}\r\n`;
     callback(null, result);
 });
+
+export const propertyToRemove = 'Amount';
