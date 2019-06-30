@@ -1,3 +1,0 @@
-{"book":"War and Peace","author":"Leo Tolstoy","price":"9.48"}
-{"book":"The Shadow of the Wind","author":"Carlos Ruiz Zafon","price":"15.79"}
-{"book":"The Lord of the Rings","author":"J.R.R. Tolkien","price":"21.34"}

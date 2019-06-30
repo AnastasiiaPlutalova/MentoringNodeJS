@@ -7,6 +7,7 @@
     "invertString": "nodemon --exec babel-node src/invertString.js",
     "csvToTxt": "nodemon --exec babel-node src/csvToTxt.js",
     "csvToTxt-pipeline": "nodemon --exec babel-node src/csvToTxtPipeline.js",
+    "csvToTxt-subscribe": "nodemon --exec babel-node src/csvToTxtSubscribe.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version"
   },

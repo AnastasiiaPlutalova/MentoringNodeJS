@@ -1,6 +1,6 @@
 import { obj as _obj } from 'through2';
 
-const keysToLowerCase = (obj) => {
+export const keysToLowerCase = (obj) => {
     return Object.keys(obj).reduce(
         (acc, key) => {
             acc[key.toLowerCase()] = obj[key];
