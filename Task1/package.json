@@ -4,28 +4,40 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "invertString": "nodemon --exec babel-node src/invertString.js",
+    "csvToTxt": "nodemon --exec babel-node src/csvToTxt.js",
+    "csvToTxt-pipeline": "nodemon --exec babel-node src/csvToTxtPipeline.js",
+    "csvToTxt-subscribe": "nodemon --exec babel-node src/csvToTxtSubscribe.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "standard-version"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "through2": "^3.0.1"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/node": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "husky": "^2.4.1",
     "nodemon": "^1.19.1",
     "standard-version": "^6.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": ""
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
