@@ -1,22 +1,53 @@
+import { UserService } from '../services';
+
 class UserController {
-    getUsers = (req, res) => {
-        res.send('Get all users from service!!!');
+    getUsers = async (req, res) => {
+        try {
+            const users = await UserService.getUsers();
+            return res.status(200).json({ status: 200, data: users, message: 'SUCCESS' });
+        } catch (e) {
+            return res.status(400).json({ status: 400, message: e.message });
+        }
     }
 
-    getUserById = (req, res) => {
-        res.send(req.params.id);
+    getUserById = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const user = await UserService.getUserById(id);
+            return res.status(200).json({ status: 200, data: user, message: 'SUCCESS' });
+        } catch (e) {
+            return res.status(400).json({ status: 400, message: e.message });
+        }
     }
 
-    createUser = (req, res) => {
-        res.send('create');
+    createUser = async (req, res) => {
+        try {
+            const { user } = req.body;
+            const newUser = await UserService.createUser(user);
+            return res.status(200).json({ status: 200, data: newUser, message: 'SUCCESS' });
+        } catch (e) {
+            return res.status(400).json({ status: 400, message: e.message });
+        }
     }
 
-    updateUser = (req, res) => {
-        res.send('update');
+    updateUser = async (req, res) => {
+        try {
+            const { user } = req.body;
+            const updatedUser = await UserService.createUser(user);
+            return res.status(200).json({ status: 200, data: updatedUser, message: 'SUCCESS' });
+        } catch (e) {
+            return res.status(400).json({ status: 400, message: e.message });
+        }
     }
 
-    deleteUser = (req, res) => {
-        res.send('delete');
+    deleteUser = async (req, res) => {
+        try {
+            const { id } = req.params;
+            const user = await UserService.getUserById(id);
+            return res.status(200).json({ status: 200, data: user, message: 'SUCCESS' });
+        } catch (e) {
+            return res.status(400).json({ status: 400, message: e.message });
+        }
     }
 }
 
