@@ -9,5 +9,7 @@
                 "loose": true
             }
         ]
-    ]
+    ],
+    "sourceMaps": "inline",
+    "retainLines": true
 }

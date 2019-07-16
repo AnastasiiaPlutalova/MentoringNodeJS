@@ -1,22 +1,24 @@
+import { UserModel } from '../models';
+
 class UserService {
     getUsers = async () => {
-        return 'all users';
+        return await UserModel.getUsers();
     }
 
     getUserById = async (id) => {
-        return `id: ${id}`;
+        return await UserModel.getUserById(id);
     }
 
     createUser = async (user) => {
-        return `create: ${JSON.stringify(user)}`;
+        return await UserModel.createUser(user);
     }
 
-    createUser = async (user) => {
-        return `update: ${JSON.stringify(user)}`;
+    updateUser = async (user) => {
+        return await UserModel.updateUser(user);
     }
 
-    createUser = async (id) => {
-        return `delete: ${id}`;
+    deleteUser = async (id) => {
+        return await UserModel.deleteUser(id);
     }
 }
 
