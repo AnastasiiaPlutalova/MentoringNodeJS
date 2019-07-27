@@ -8,7 +8,8 @@
             {
                 "loose": true
             }
-        ]
+        ],
+        ["@babel/transform-runtime"]
     ],
     "sourceMaps": "inline",
     "retainLines": true

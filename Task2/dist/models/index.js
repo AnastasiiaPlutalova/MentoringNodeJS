@@ -1,15 +1,2 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "User", {
-  enumerable: true,
-  get: function get() {
-    return _userModel["default"];
-  }
-});
-
-var _userModel = _interopRequireDefault(require("./userModel.file"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "UserModel", { enumerable: true, get: function get() {return _userModel["default"];} });var _userModel = _interopRequireDefault(require("./userModel.file"));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9tb2RlbHMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6InVSQUFBIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IHsgZGVmYXVsdCBhcyBVc2VyTW9kZWwgfSAgZnJvbSAnLi91c2VyTW9kZWwuZmlsZSc7XHJcbiJdfQ==

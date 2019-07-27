@@ -1,15 +1,2 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "userRouter", {
-  enumerable: true,
-  get: function get() {
-    return _userRoutes["default"];
-  }
-});
-
-var _userRoutes = _interopRequireDefault(require("./userRoutes"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });Object.defineProperty(exports, "userRouter", { enumerable: true, get: function get() {return _userRoutes["default"];} });var _userRoutes = _interopRequireDefault(require("./userRoutes"));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9yb3V0ZXMvaW5kZXguanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6InlSQUFBIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IHsgZGVmYXVsdCBhcyB1c2VyUm91dGVyIH0gZnJvbSAnLi91c2VyUm91dGVzJztcclxuIl19

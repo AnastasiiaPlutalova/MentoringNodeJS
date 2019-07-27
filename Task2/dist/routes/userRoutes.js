@@ -1,22 +1,17 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _express = _interopRequireDefault(require("express"));
-
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });exports["default"] = void 0;var _express = _interopRequireDefault(require("express"));
 var _controllers = require("../controllers");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var router = _express["default"].Router();
 
 router.get('/', _controllers.UserController.getUsers);
+
 router.get('/:id', _controllers.UserController.getUserById);
+
 router.post('/', _controllers.UserController.createUser);
+
 router.put('/', _controllers.UserController.updateUser);
-router["delete"]('/:id', _controllers.UserController.deleteUser);
-var _default = router;
-exports["default"] = _default;
+
+router["delete"]('/:id', _controllers.UserController.deleteUser);var _default =
+
+router;exports["default"] = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9yb3V0ZXMvdXNlclJvdXRlcy5qcyJdLCJuYW1lcyI6WyJyb3V0ZXIiLCJleHByZXNzIiwiUm91dGVyIiwiZ2V0IiwiVXNlckNvbnRyb2xsZXIiLCJnZXRVc2VycyIsImdldFVzZXJCeUlkIiwicG9zdCIsImNyZWF0ZVVzZXIiLCJwdXQiLCJ1cGRhdGVVc2VyIiwiZGVsZXRlVXNlciJdLCJtYXBwaW5ncyI6IjRMQUFBO0FBQ0E7O0FBRUEsSUFBTUEsTUFBTSxHQUFHQyxvQkFBUUMsTUFBUixFQUFmOztBQUVBRixNQUFNLENBQUNHLEdBQVAsQ0FBVyxHQUFYLEVBQWdCQyw0QkFBZUMsUUFBL0I7O0FBRUFMLE1BQU0sQ0FBQ0csR0FBUCxDQUFXLE1BQVgsRUFBbUJDLDRCQUFlRSxXQUFsQzs7QUFFQU4sTUFBTSxDQUFDTyxJQUFQLENBQVksR0FBWixFQUFpQkgsNEJBQWVJLFVBQWhDOztBQUVBUixNQUFNLENBQUNTLEdBQVAsQ0FBVyxHQUFYLEVBQWdCTCw0QkFBZU0sVUFBL0I7O0FBRUFWLE1BQU0sVUFBTixDQUFjLE1BQWQsRUFBc0JJLDRCQUFlTyxVQUFyQyxFOztBQUVlWCxNIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IGV4cHJlc3MgZnJvbSAnZXhwcmVzcyc7XHJcbmltcG9ydCB7IFVzZXJDb250cm9sbGVyIH0gZnJvbSAnLi4vY29udHJvbGxlcnMnO1xyXG5cclxuY29uc3Qgcm91dGVyID0gZXhwcmVzcy5Sb3V0ZXIoKTtcclxuXHJcbnJvdXRlci5nZXQoJy8nLCBVc2VyQ29udHJvbGxlci5nZXRVc2Vycyk7XHJcblxyXG5yb3V0ZXIuZ2V0KCcvOmlkJywgVXNlckNvbnRyb2xsZXIuZ2V0VXNlckJ5SWQpO1xyXG5cclxucm91dGVyLnBvc3QoJy8nLCBVc2VyQ29udHJvbGxlci5jcmVhdGVVc2VyKTtcclxuXHJcbnJvdXRlci5wdXQoJy8nLCBVc2VyQ29udHJvbGxlci51cGRhdGVVc2VyKTtcclxuXHJcbnJvdXRlci5kZWxldGUoJy86aWQnLCBVc2VyQ29udHJvbGxlci5kZWxldGVVc2VyKTtcclxuXHJcbmV4cG9ydCBkZWZhdWx0IHJvdXRlcjtcclxuIl19
