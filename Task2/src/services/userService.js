@@ -1,4 +1,10 @@
-import { UserModel } from '../models';
+import dotenv from 'dotenv';
+import { userModel } from '../models';
+import { DB_TYPE } from '../common/constants';
+
+dotenv.config();
+
+const UserModel = process.env.DB === DB_TYPE.POSTGRES ? userModel.postgres : userModel.file;
 
 class UserService {
     getUsers = async () => {

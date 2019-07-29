@@ -9,4 +9,4 @@ RUN npm install
 
 COPY . .
 
-CMD [ "npm", "start:dev" ]
+CMD [ "npm", "start:docker" ]
