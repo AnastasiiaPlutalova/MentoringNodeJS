@@ -1,19 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
 import squel from 'squel';
 import query from '../postgres/db-connection';
 
 dotenv.config();
-
-const writeFile = util.promisify(fs.writeFile);
-
-
-const dir = process.env.FILE_DB_DIR;
-const jsonFile = process.env.USER_JSON;
-const dbPath = path.join(process.cwd(), dir, jsonFile);
 
 class User {
     getUsers = async () => {
@@ -56,7 +46,7 @@ class User {
         const { id } = user;
         const queryString = squel.update()
             .table('users')
-            .set(user)
+            .setFields(user)
             .where(`id='${id}'`)
             .toString();
         const result = await query(queryString);
@@ -64,14 +54,13 @@ class User {
     }
 
     deleteUser = async (id) => {
-        const user = await this.getUserById(id);
-        if (user) {
-            user.isdeleted = true;
-            console.log(user);
-            await this.updateUser(user);
-        }
-
-        throw new Error('User not found');
+        console.log(id);
+        const queryString = squel.update()
+            .table('users')
+            .set('isdeleted', true)
+            .where(`id='${id}'`)
+            .toString();
+        await query(queryString);
     }
 }
 
