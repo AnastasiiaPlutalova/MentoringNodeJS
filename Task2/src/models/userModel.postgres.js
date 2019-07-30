@@ -54,7 +54,6 @@ class User {
     }
 
     deleteUser = async (id) => {
-        console.log(id);
         const queryString = squel.update()
             .table('users')
             .set('isdeleted', true)

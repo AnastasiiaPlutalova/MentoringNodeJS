@@ -9,7 +9,7 @@
     "start:dev": "nodemon --exec babel-node -L src/server.js",
     "start:docker": "npm i && nodemon --exec babel-node -L src/server.js",
     "debug": "nodemon --inspect --exec babel-node src/server.js",
-    "up": "docker-compose up",
+    "up": "docker volume create --name data -d local && docker-compose up",
     "down": "docker-compose down"
   },
   "keywords": [],
