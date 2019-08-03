@@ -1,19 +1,19 @@
 import { UserService } from '../services';
 
 class UserController {
-    getUsers = async (req, res) => {
+    getAll = async (req, res) => {
         try {
-            const users = await UserService.getUsers();
+            const users = await UserService.getAll();
             return res.status(200).json({ status: 200, data: users, message: 'SUCCESS' });
         } catch (e) {
-            return res.status(500).json({ status: 500, message: e.message });
+            return res.status(500).json({ status: 500, message: 'Server error' });
         }
     }
 
-    getUserById = async (req, res) => {
+    getById = async (req, res) => {
         try {
             const { id } = req.params;
-            const user = await UserService.getUserById(id);
+            const user = await UserService.getById(id);
             if (user) {
                 return res.status(200).json({ status: 200, data: user, message: 'SUCCESS' });
             }
@@ -23,30 +23,30 @@ class UserController {
         }
     }
 
-    createUser = async (req, res) => {
+    create = async (req, res) => {
         try {
             const { user } = req.body;
-            const newUser = await UserService.createUser(user);
+            const newUser = await UserService.create(user);
             return res.status(200).json({ status: 200, data: newUser, message: 'SUCCESS' });
         } catch (e) {
             return res.status(500).json({ status: 500, message: e.message });
         }
     }
 
-    updateUser = async (req, res) => {
+    update = async (req, res) => {
         try {
             const { user } = req.body;
-            const updatedUser = await UserService.updateUser(user);
+            const updatedUser = await UserService.update(user);
             return res.status(200).json({ status: 200, data: updatedUser, message: 'SUCCESS' });
         } catch (e) {
             return res.status(500).json({ status: 500, message: e.message });
         }
     }
 
-    deleteUser = async (req, res) => {
+    delete = async (req, res) => {
         try {
             const { id } = req.params;
-            const user = await UserService.deleteUser(id);
+            const user = await UserService.delete(id);
             return res.status(200).json({ status: 200, data: user, message: 'SUCCESS' });
         } catch (e) {
             return res.status(500).json({ status: 500, message: e.message });

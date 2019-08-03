@@ -14,20 +14,20 @@ const jsonFile = process.env.USER_JSON;
 const dbPath = path.join(process.cwd(), dir, jsonFile);
 
 class User {
-    getUsers = async () => {
+    getAll = async () => {
         const fileData = await readFile(dbPath);
         const users = JSON.parse(fileData);
         return users;
     }
 
-    getUserById = async (id) => {
-        const users = await this.getUsers();
+    getById = async (id) => {
+        const users = await this.getAll();
         const user = users.find(u => u.id === id);
         return user;
     }
 
-    createUser = async (newUser) => {
-        const users = await this.getUsers();
+    create = async (newUser) => {
+        const users = await this.getAll();
         const id = uuidv4();
         const user = {
             ...newUser,
@@ -41,10 +41,10 @@ class User {
         return user;
     }
 
-    updateUser = async (updateUser) => {
+    update = async (updateUser) => {
         const user = await this.getUserById(updateUser.id);
         if (user) {
-            const users = await this.getUsers();
+            const users = await this.getAll();
             const index = users.findIndex(u => u.id === updateUser.id);
             users[index] = {
                 ...updateUser
@@ -58,10 +58,10 @@ class User {
         throw new Error('User not found');
     }
 
-    deleteUser = async (id) => {
+    delete = async (id) => {
         const user = await this.getUserById(id);
         if (user) {
-            const users = await this.getUsers();
+            const users = await this.getAll();
             const index = users.findIndex(u => u.id === id);
             users[index].isDeleted = true;
 

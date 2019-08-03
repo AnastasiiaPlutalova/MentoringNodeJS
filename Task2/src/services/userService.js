@@ -7,24 +7,24 @@ dotenv.config();
 const UserModel = process.env.DB === DB_TYPE.POSTGRES ? userModel.postgres : userModel.file;
 
 class UserService {
-    getUsers = async () => {
-        return await UserModel.getUsers();
+    getAll = async () => {
+        return await UserModel.getAll();
     }
 
-    getUserById = async (id) => {
+    getById = async (id) => {
         return await UserModel.getUserById(id);
     }
 
-    createUser = async (user) => {
-        return await UserModel.createUser(user);
+    create = async (user) => {
+        return await UserModel.create(user);
     }
 
-    updateUser = async (user) => {
-        return await UserModel.updateUser(user);
+    update = async (user) => {
+        return await UserModel.update(user);
     }
 
-    deleteUser = async (id) => {
-        return await UserModel.deleteUser(id);
+    delete = async (id) => {
+        return await UserModel.delete(id);
     }
 }
 

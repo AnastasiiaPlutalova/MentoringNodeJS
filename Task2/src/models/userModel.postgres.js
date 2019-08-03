@@ -6,7 +6,7 @@ import query from '../postgres/db-connection';
 dotenv.config();
 
 class User {
-    getUsers = async () => {
+    getAll = async () => {
         const queryString = squel.select()
             .from('users')
             .toString();
@@ -14,7 +14,7 @@ class User {
         return result;
     }
 
-    getUserById = async (id) => {
+    getById = async (id) => {
         const queryString = squel.select()
             .from('users')
             .where(`id='${id}'`)
@@ -24,7 +24,7 @@ class User {
         return result[0];
     }
 
-    createUser = async (newUser) => {
+    create = async (newUser) => {
         const id = uuidv4();
         const user = {
             id,
@@ -42,7 +42,7 @@ class User {
         return user;
     }
 
-    updateUser = async (user) => {
+    update = async (user) => {
         const { id } = user;
         const queryString = squel.update()
             .table('users')
@@ -53,7 +53,7 @@ class User {
         return result;
     }
 
-    deleteUser = async (id) => {
+    delete = async (id) => {
         const queryString = squel.update()
             .table('users')
             .set('isdeleted', true)
