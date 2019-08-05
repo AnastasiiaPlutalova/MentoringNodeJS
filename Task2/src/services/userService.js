@@ -1,30 +1,55 @@
 import dotenv from 'dotenv';
 import { userModel } from '../models';
-import { DB_TYPE } from '../common/constants';
+import { DB_DIALECT } from '../common/constants';
+import { mapPGUserToDTO } from '../entities';
 
 dotenv.config();
 
-const UserModel = process.env.DB === DB_TYPE.POSTGRES ? userModel.postgres : userModel.file;
+const UserModel = process.env.DB_DIALECT === DB_DIALECT.POSTGRES ? userModel.postgres : userModel.file;
 
 class UserService {
+    create = async (userDTO) => {
+        const userDB = await UserModel.create(userDTO);
+
+        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+            return mapPGUserToDTO(userDB);
+        }
+
+        return userDB;
+    }
+
     getAll = async () => {
-        return await UserModel.getAll();
+        const usersDB = await UserModel.getAll();
+
+        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+            return usersDB.map(u => mapPGUserToDTO(u));
+        }
+
+        return usersDB;
     }
 
     getById = async (id) => {
-        return await UserModel.getUserById(id);
+        const userDB = await UserModel.getById(id);
+
+        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+            return mapPGUserToDTO(userDB);
+        }
+
+        return userDB;
     }
 
-    create = async (user) => {
-        return await UserModel.create(user);
-    }
+    update = async (userDTO) => {
+        const userDB = await UserModel.update(userDTO);
 
-    update = async (user) => {
-        return await UserModel.update(user);
+        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+            return mapPGUserToDTO(userDB);
+        }
+
+        return userDB;
     }
 
     delete = async (id) => {
-        return await UserModel.delete(id);
+        await UserModel.delete(id);
     }
 }
 

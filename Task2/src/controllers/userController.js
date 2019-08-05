@@ -1,12 +1,35 @@
+import { ApiResponse, mapBodyToUser } from '../entities';
 import { UserService } from '../services';
+import { RESPONSE } from '../common/constants';
 
 class UserController {
+    create = async (req, res) => {
+        try {
+            const { status, message } = RESPONSE.SUCCESS;
+            const user = mapBodyToUser(req.body);
+            const newUser = await UserService.create(user);
+            const response = new ApiResponse(status, message, newUser);
+
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
+
+            return res.status(status).json(response);
+        }
+    }
+
     getAll = async (req, res) => {
         try {
+            const { status, message } = RESPONSE.SUCCESS;
             const users = await UserService.getAll();
-            return res.status(200).json({ status: 200, data: users, message: 'SUCCESS' });
+            const response = new ApiResponse(status, message, users);
+            return res.status(status).json(response);
         } catch (e) {
-            return res.status(500).json({ status: 500, message: 'Server error' });
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
+
+            return res.status(status).json(response);
         }
     }
 
@@ -15,41 +38,52 @@ class UserController {
             const { id } = req.params;
             const user = await UserService.getById(id);
             if (user) {
-                return res.status(200).json({ status: 200, data: user, message: 'SUCCESS' });
+                const { status, message } = RESPONSE.SUCCESS;
+                const response = new ApiResponse(status, message, user);
+                return res.status(status).json(response);
             }
-            return res.status(404).json({ status: 404, data: user, message: 'EMPTY' });
-        } catch (e) {
-            return res.status(500).json({ status: 500, message: e.message });
-        }
-    }
 
-    create = async (req, res) => {
-        try {
-            const { user } = req.body;
-            const newUser = await UserService.create(user);
-            return res.status(200).json({ status: 200, data: newUser, message: 'SUCCESS' });
+            const { status, message } = RESPONSE.NOT_FOUND;
+            const response = new ApiResponse(status, message);
+            return res.status(status).json(response);
         } catch (e) {
-            return res.status(500).json({ status: 500, message: e.message });
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
+
+            return res.status(status).json(response);
         }
     }
 
     update = async (req, res) => {
         try {
-            const { user } = req.body;
+            const { status, message } = RESPONSE.SUCCESS;
+            const user = mapBodyToUser(req.body);
             const updatedUser = await UserService.update(user);
-            return res.status(200).json({ status: 200, data: updatedUser, message: 'SUCCESS' });
+            const response = new ApiResponse(status, message, updatedUser);
+
+            return res.status(status).json(response);
         } catch (e) {
-            return res.status(500).json({ status: 500, message: e.message });
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
+
+            return res.status(status).json(response);
         }
     }
 
     delete = async (req, res) => {
         try {
+            const { status, message } = RESPONSE.SUCCESS;
             const { id } = req.params;
-            const user = await UserService.delete(id);
-            return res.status(200).json({ status: 200, data: user, message: 'SUCCESS' });
+            const response = new ApiResponse(status, message);
+
+            await UserService.delete(id);
+
+            return res.status(status).json(response);
         } catch (e) {
-            return res.status(500).json({ status: 500, message: e.message });
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
+
+            return res.status(status).json(response);
         }
     }
 }

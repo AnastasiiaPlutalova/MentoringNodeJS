@@ -1,65 +1,38 @@
-import dotenv from 'dotenv';
-import uuidv4 from 'uuid/v4';
-import squel from 'squel';
-import query from '../postgres/db-connection';
-
-dotenv.config();
+import UserModel from '../postgres/UserModel';
 
 class User {
+    create = async (user) => {
+        return await UserModel.create(user);
+    }
+
     getAll = async () => {
-        const queryString = squel.select()
-            .from('users')
-            .toString();
-        const result = await query(queryString);
-        return result;
+        const usersPG = await UserModel.findAll({ paranoid: false });
+        const users = usersPG.map(u => u.get({ plain: true }));
+        return users;
     }
 
     getById = async (id) => {
-        const queryString = squel.select()
-            .from('users')
-            .where(`id='${id}'`)
-            .limit(1)
-            .toString();
-        const result = await query(queryString);
-        return result[0];
-    }
-
-    create = async (newUser) => {
-        const id = uuidv4();
-        const user = {
-            id,
-            ...newUser
-        };
-
-        const queryString = squel.insert()
-            .into('users')
-            .setFields(user)
-            .toString();
-
-
-        await query(queryString);
-
+        const userPG = await UserModel.findByPk(id, { paranoid: false });
+        const user = userPG.get({ plain: true });
         return user;
     }
 
-    update = async (user) => {
-        const { id } = user;
-        const queryString = squel.update()
-            .table('users')
-            .setFields(user)
-            .where(`id='${id}'`)
-            .toString();
-        const result = await query(queryString);
-        return result;
+    update = async (userDTO) => {
+        const userPG = await UserModel.update(
+            userDTO,
+            {
+                where: { id: userDTO.id },
+                returning: true,
+                plain: true
+            });
+
+        return userPG[1].dataValues;
     }
 
     delete = async (id) => {
-        const queryString = squel.update()
-            .table('users')
-            .set('isdeleted', true)
-            .where(`id='${id}'`)
-            .toString();
-        await query(queryString);
+        await UserModel.destroy({
+            where: { id }
+        });
     }
 }
 
