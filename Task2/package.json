@@ -1,0 +1,53 @@
+{
+  "name": "task2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "start:prod": "npm run build && node dist/server.js",
+    "start:dev": "nodemon --exec babel-node -L src/server.js",
+    "start:docker": "npm i && nodemon --exec babel-node -L src/server.js",
+    "debug": "nodemon --inspect --exec babel-node src/server.js",
+    "up": "docker-compose up",
+    "down": "docker-compose down --rmi all",
+    "down:rmi": "docker-compose down --rmi all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.0",
+    "@babel/core": "^7.5.0",
+    "@babel/node": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.5.0",
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "babel-eslint": "^10.0.2",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^6.0.1",
+    "husky": "^3.0.0",
+    "nodemon": "^1.19.1",
+    "standard-version": "^6.0.1"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
+    "@babel/runtime": "^7.5.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "pg": "^7.11.0",
+    "sequelize": "^5.12.2",
+    "uuid": "^3.3.2"
+  }
+}
