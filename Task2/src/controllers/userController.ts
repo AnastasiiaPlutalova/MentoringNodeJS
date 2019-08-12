@@ -1,9 +1,24 @@
+import { Request, Response } from 'express';
 import { ApiResponse, mapBodyToUser } from '../entities';
 import { UserService } from '../services';
 import { RESPONSE } from '../common/constants';
 
 class UserController {
-    create = async (req, res) => {
+    getAll = async (req, res) => {
+        try {
+            const { status, message } = RESPONSE.SUCCESS;
+            const users = await UserService.getAll();
+            const response = new ApiResponse(status, message, users);
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
+
+            return res.status(status).json(response);
+        }
+    }
+    
+    public create = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
             const user = mapBodyToUser(req.body);
@@ -18,21 +33,7 @@ class UserController {
             return res.status(status).json(response);
         }
     }
-
-    getAll = async (req, res) => {
-        try {
-            const { status, message } = RESPONSE.SUCCESS;
-            const users = await UserService.getAll();
-            const response = new ApiResponse(status, message, users);
-            return res.status(status).json(response);
-        } catch (e) {
-            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-            const response = new ApiResponse(status, message);
-
-            return res.status(status).json(response);
-        }
-    }
-
+    
     getById = async (req, res) => {
         try {
             const { id } = req.params;

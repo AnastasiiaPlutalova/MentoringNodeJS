@@ -16,7 +16,7 @@ const dbPath = path.join(process.cwd(), dir, jsonFile);
 class User {
     getAll = async () => {
         const fileData = await readFile(dbPath);
-        const users = JSON.parse(fileData);
+        const users = JSON.parse(fileData.toString());
         return users;
     }
 
@@ -42,7 +42,7 @@ class User {
     }
 
     update = async (updateUser) => {
-        const user = await this.getUserById(updateUser.id);
+        const user = await this.getById(updateUser.id);
         if (user) {
             const users = await this.getAll();
             const index = users.findIndex(u => u.id === updateUser.id);
@@ -59,7 +59,7 @@ class User {
     }
 
     delete = async (id) => {
-        const user = await this.getUserById(id);
+        const user = await this.getById(id);
         if (user) {
             const users = await this.getAll();
             const index = users.findIndex(u => u.id === id);

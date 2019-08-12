@@ -1,5 +1,11 @@
 class UserDTO {
-    constructor(id, login, password, age, deletedAt) {
+    public id;
+    public login;
+    public password;
+    public age;
+    public isDeleted;
+
+    constructor(id, login, password, age, deletedAt = false) {
         this.id = id;
         this.login = login;
         this.password = password;
