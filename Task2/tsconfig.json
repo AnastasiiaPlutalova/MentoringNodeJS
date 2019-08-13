@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "target": "es6",
+        "target": "esNext",
         "module": "commonjs",
         "outDir": "./dist",
         "sourceMap": true,
         "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true
     },
     "include": [
         "./src/**/*"

@@ -1,13 +1,19 @@
+import { injectable, inject } from 'inversify';
 import { Request, Response } from 'express';
 import { ApiResponse, mapBodyToUser } from '../entities';
 import { UserService } from '../services';
 import { RESPONSE } from '../common/constants';
+import { IEntityController, IEntityService } from '../typing/interfaces';
+import TYPES from '../typing/types';
 
-class UserController {
-    getAll = async (req, res) => {
+@injectable()
+class UserController implements IEntityController {
+    @inject(TYPES.IEntityService) private _userService: IEntityService;
+
+    public getAll = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
-            const users = await UserService.getAll();
+            const users = await this._userService.getAll();
             const response = new ApiResponse(status, message, users);
             return res.status(status).json(response);
         } catch (e) {
@@ -17,12 +23,12 @@ class UserController {
             return res.status(status).json(response);
         }
     }
-    
+
     public create = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
             const user = mapBodyToUser(req.body);
-            const newUser = await UserService.create(user);
+            const newUser = await this._userService.create(user);
             const response = new ApiResponse(status, message, newUser);
 
             return res.status(status).json(response);
@@ -33,11 +39,11 @@ class UserController {
             return res.status(status).json(response);
         }
     }
-    
-    getById = async (req, res) => {
+
+    public getById = async (req: Request, res: Response): Promise<any> => {
         try {
             const { id } = req.params;
-            const user = await UserService.getById(id);
+            const user = await this._userService.getById(id);
             if (user) {
                 const { status, message } = RESPONSE.SUCCESS;
                 const response = new ApiResponse(status, message, user);
@@ -55,7 +61,7 @@ class UserController {
         }
     }
 
-    update = async (req, res) => {
+    public update = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
             const user = mapBodyToUser(req.body);
@@ -71,13 +77,13 @@ class UserController {
         }
     }
 
-    delete = async (req, res) => {
+    public delete = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
             const { id } = req.params;
             const response = new ApiResponse(status, message);
 
-            await UserService.delete(id);
+            await this._userService.delete(id);
 
             return res.status(status).json(response);
         } catch (e) {
@@ -89,4 +95,4 @@ class UserController {
     }
 }
 
-export default new UserController();
+export default UserController;

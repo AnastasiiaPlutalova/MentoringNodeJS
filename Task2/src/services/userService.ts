@@ -1,14 +1,17 @@
+import { injectable } from 'inversify';
 import dotenv from 'dotenv';
 import { userModel } from '../models';
 import { DB_DIALECT } from '../common/constants';
 import { mapPGUserToDTO } from '../entities';
+import { IEntityService } from '../typing/interfaces';
 
 dotenv.config();
 
 const UserModel = process.env.DB_DIALECT === DB_DIALECT.POSTGRES ? userModel.postgres : userModel.file;
 
-class UserService {
-    create = async (userDTO) => {
+@injectable()
+class UserService implements IEntityService {
+    create = async (userDTO: any): Promise<any> => {
         const userDB = await UserModel.create(userDTO);
 
         if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
@@ -18,7 +21,7 @@ class UserService {
         return userDB;
     }
 
-    getAll = async () => {
+    getAll = async (): Promise<any> => {
         const usersDB = await UserModel.getAll();
 
         if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
@@ -28,7 +31,7 @@ class UserService {
         return usersDB;
     }
 
-    getById = async (id) => {
+    getById = async (id: any): Promise<any> => {
         const userDB = await UserModel.getById(id);
 
         if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
@@ -38,7 +41,7 @@ class UserService {
         return userDB;
     }
 
-    update = async (userDTO) => {
+    update = async (userDTO: any): Promise<any> => {
         const userDB = await UserModel.update(userDTO);
 
         if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
@@ -48,9 +51,9 @@ class UserService {
         return userDB;
     }
 
-    delete = async (id) => {
+    delete = async (id: any): Promise<any> => {
         await UserModel.delete(id);
     }
 }
 
-export default new UserService();
+export default UserService;
