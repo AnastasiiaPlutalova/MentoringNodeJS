@@ -1,59 +1,58 @@
 import { injectable } from 'inversify';
-import dotenv from 'dotenv';
-import { userModel } from '../models';
-import { DB_DIALECT } from '../common/constants';
-import { mapPGUserToDTO } from '../entities';
-import { IEntityService } from '../typing/interfaces';
+import { IUserDTO, IUserDomain } from '../typing/interfaces';
+import { UserMapper } from '../mapper';
+import IEntityService from '../typing/interfaces/IEntityService';
 
-dotenv.config();
-
-const UserModel = process.env.DB_DIALECT === DB_DIALECT.POSTGRES ? userModel.postgres : userModel.file;
 
 @injectable()
 class UserService implements IEntityService {
-    create = async (userDTO: any): Promise<any> => {
-        const userDB = await UserModel.create(userDTO);
+    create = async (userDTO: IUserDTO): Promise<IUserDomain> => {
+        const userDomain: IUserDomain = UserMapper.mapUserDTOToUserDomain(userDTO);
 
-        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
-            return mapPGUserToDTO(userDB);
-        }
 
-        return userDB;
+        return userDomain;
+        // const userDB = await UserModel.create(userDTO);
+
+        // if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+        //     return mapPGUserToDTO(userDB);
+        // }
+
+        // return userDB;
     }
 
-    getAll = async (): Promise<any> => {
-        const usersDB = await UserModel.getAll();
+    // getAll = async (): Promise<any> => {
+    //     const usersDB = await UserModel.getAll();
 
-        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
-            return usersDB.map(u => mapPGUserToDTO(u));
-        }
+    //     if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+    //         return usersDB.map(u => mapPGUserToDTO(u));
+    //     }
 
-        return usersDB;
-    }
+    //     return usersDB;
+    // }
 
-    getById = async (id: any): Promise<any> => {
-        const userDB = await UserModel.getById(id);
+    // getById = async (id: any): Promise<any> => {
+    //     const userDB = await UserModel.getById(id);
 
-        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
-            return mapPGUserToDTO(userDB);
-        }
+    //     if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+    //         return mapPGUserToDTO(userDB);
+    //     }
 
-        return userDB;
-    }
+    //     return userDB;
+    // }
 
-    update = async (userDTO: any): Promise<any> => {
-        const userDB = await UserModel.update(userDTO);
+    // update = async (userDTO: any): Promise<any> => {
+    //     const userDB = await UserModel.update(userDTO);
 
-        if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
-            return mapPGUserToDTO(userDB);
-        }
+    //     if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
+    //         return mapPGUserToDTO(userDB);
+    //     }
 
-        return userDB;
-    }
+    //     return userDB;
+    // }
 
-    delete = async (id: any): Promise<any> => {
-        await UserModel.delete(id);
-    }
+    // delete = async (id: any): Promise<any> => {
+    //     await UserModel.delete(id);
+    // }
 }
 
 export default UserService;
