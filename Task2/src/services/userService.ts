@@ -22,15 +22,10 @@ class UserService implements IEntityService {
         return userDTO;
     }
 
-    // update = async (userDTO: any): Promise<any> => {
-    //     const userDB = await UserModel.update(userDTO);
-
-    //     if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
-    //         return mapPGUserToDTO(userDB);
-    //     }
-
-    //     return userDB;
-    // }
+    update = async (userDTO: IUserDTO): Promise<any> => {
+        const userUpdated = await this._userModel.update(userDTO);
+        return userUpdated;
+    }
 
     // delete = async (id: any): Promise<any> => {
     //     await UserModel.delete(id);

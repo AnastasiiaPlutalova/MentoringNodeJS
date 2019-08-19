@@ -15,7 +15,7 @@ class UserController implements IEntityController {
         try {
             const { status, message } = RESPONSE.SUCCESS;
 
-            const userDTO: IUserDTO = UserMapper.mapReqBodyToUserDTO(req.body.user);
+            const userDTO: IUserDTO = UserMapper.mapReqBodyToUserDTO(req.body);
             const userNew: IUserDTO = await this._userService.create(userDTO);
             const response = new ApiResponse(status, message, userNew);
 
@@ -64,21 +64,21 @@ class UserController implements IEntityController {
         }
     }
 
-    // public update = async (req: Request, res: Response): Promise<any> => {
-    //     try {
-    //         const { status, message } = RESPONSE.SUCCESS;
-    //         const user = mapBodyToUser(req.body);
-    //         const updatedUser = await this._userService.update(user);
-    //         const response = new ApiResponse(status, message, updatedUser);
+    public update = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { status, message } = RESPONSE.SUCCESS;
+            const user = UserMapper.mapReqBodyToUserDTO(req.body);
+            const updatedUser = await this._userService.update(user);
+            const response = new ApiResponse(status, message, updatedUser);
 
-    //         return res.status(status).json(response);
-    //     } catch (e) {
-    //         const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-    //         const response = new ApiResponse(status, message);
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, e.message);
 
-    //         return res.status(status).json(response);
-    //     }
-    // }
+            return res.status(status).json(response);
+        }
+    }
 
     // public delete = async (req: Request, res: Response): Promise<any> => {
     //     try {

@@ -8,12 +8,9 @@ const controller = container.get<IEntityController>(CONTRACTS.IEntityController)
 const router = express.Router();
 
 router.post('/', controller.create);
-
 router.get('/', controller.getAll);
-
 router.get('/:id', controller.getById);
-
-// router.put('/', userController.update);
+router.put('/', controller.update);
 
 // router.delete('/:id', userController.delete);
 

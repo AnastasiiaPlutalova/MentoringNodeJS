@@ -29,17 +29,17 @@ class User implements IEntityModel {
         return userDTO;
     }
 
-    // update = async (userDTO) => {
-    //     const userPG = await UserModel.update(
-    //         userDTO,
-    //         {
-    //             where: { id: userDTO.id },
-    //             returning: true,
-    //             plain: true
-    //         });
-
-    //     return userPG[1].dataValues;
-    // }
+    update = async (userDTO: IUserDTO): Promise<IUserDTO> => {
+        const userPG = await UserModel.update(
+            userDTO,
+            {
+                where: { id: userDTO.id },
+                returning: true,
+                plain: true
+            });
+        const userUpdated: IUserDTO = UserMapper.mapUserPGToUserDTO(userPG[1].dataValues);
+        return userUpdated;
+    }
 
     // delete = async (id) => {
     //     await UserModel.destroy({

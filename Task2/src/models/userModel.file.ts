@@ -45,22 +45,22 @@ class User implements IEntityModel {
         return user;
     }
 
-    // update = async (updateUser) => {
-    //     const user = await this.getById(updateUser.id);
-    //     if (user) {
-    //         const users = await this.getAll();
-    //         const index = users.findIndex(u => u.id === updateUser.id);
-    //         users[index] = {
-    //             ...updateUser
-    //         };
+    update = async (updateUser) => {
+        const user = await this.getById(updateUser.id);
+        if (user) {
+            const users = await this.getAll();
+            const index = users.findIndex(u => u.id === updateUser.id);
+            users[index] = {
+                ...updateUser
+            };
 
-    //         await writeFile(dbPath, JSON.stringify(users));
+            await writeFile(dbPath, JSON.stringify(users));
 
-    //         return users[index];
-    //     }
+            return users[index];
+        }
 
-    //     throw new Error('User not found');
-    // }
+        throw new Error('User not found');
+    }
 
     // delete = async (id) => {
     //     const user = await this.getById(id);
