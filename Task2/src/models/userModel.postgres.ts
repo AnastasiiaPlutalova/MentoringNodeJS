@@ -1,13 +1,15 @@
 import { injectable } from 'inversify';
 import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
 import { UserMapper } from '../mapper';
+import UserModel from '../postgres/UserModel';
 
 @injectable()
 class User implements IEntityModel {
     create = async (userDTO: IUserDTO): Promise<IUserDTO> => {
         const userDomain: IUserDomain = UserMapper.mapUserDTOToUserDomain(userDTO);
-
-        return userDTO;
+        const userPG = await UserModel.create(userDomain, { plain: true });
+        const userCreated: IUserDTO = UserMapper.mapUserPGToUserDTO(userPG);
+        return userCreated;
         // toDo convert to Domain.PG
         // create in db
         // consvert result to DTO

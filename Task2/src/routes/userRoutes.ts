@@ -7,12 +7,12 @@ const controller = container.get<IEntityController>(CONTRACTS.IEntityController)
 
 const router = express.Router();
 
+router.post('/', controller.create);
 
 // router.get('/', userController.getAll);
 
 // router.get('/:id', userController.getById);
 
-router.post('/', controller.create);
 
 // router.put('/', userController.update);
 

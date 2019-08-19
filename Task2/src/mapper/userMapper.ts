@@ -28,6 +28,18 @@ class UserMapper {
 
         return userDomain;
     }
+
+    static mapUserPGToUserDTO(userPG: any): IUserDTO {
+        const userDTO: IUserDTO = {
+            id: userPG.id,
+            login: userPG.login,
+            password: userPG.password,
+            age: userPG.age,
+            isDeleted: !!userPG.deletedAt
+        };
+
+        return userDTO;
+    }
 }
 
 export default UserMapper;

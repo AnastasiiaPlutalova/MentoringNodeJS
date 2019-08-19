@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "docker:up": "docker-compose up",
-    "docker:down": "docker-compose down --rmi all",
+    "docker:down": "docker-compose down",
     "docker:down:rmi": "docker-compose down --rmi all",
     "start:debug": "node --inspect=5858 -r ts-node/register ./src/server.ts",
     "start:docker": "npm i && nodemon -L -e ts && tsc && node src/server.ts",
