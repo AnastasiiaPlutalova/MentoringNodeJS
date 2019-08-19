@@ -4,11 +4,11 @@ import path from 'path';
 import util from 'util';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
-import { IEntityModel, IUserDomain } from '../typing/interfaces';
+import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
 
 dotenv.config();
 
-// const readFile = util.promisify(fs.readFile);
+const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 const dir = process.env.FILE_DB_DIR;
@@ -17,11 +17,11 @@ const dbPath = path.join(process.cwd(), dir, jsonFile);
 
 @injectable()
 class User implements IEntityModel {
-    // getAll = async () => {
-    //     const fileData = await readFile(dbPath);
-    //     const users = JSON.parse(fileData.toString());
-    //     return users;
-    // }
+    getAll = async (): Promise<IUserDTO[]> => {
+        const fileData = await readFile(dbPath);
+        const users = JSON.parse(fileData.toString());
+        return users;
+    }
 
     // getById = async (id) => {
     //     const users = await this.getAll();

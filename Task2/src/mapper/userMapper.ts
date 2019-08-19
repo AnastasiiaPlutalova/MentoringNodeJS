@@ -33,7 +33,6 @@ class UserMapper {
         const userDTO: IUserDTO = {
             id: userPG.id,
             login: userPG.login,
-            password: userPG.password,
             age: userPG.age,
             isDeleted: !!userPG.deletedAt
         };

@@ -28,20 +28,20 @@ class UserController implements IEntityController {
         }
     }
 
-    // public getAll = async (req: Request, res: Response): Promise<any> => {
-    //     try {
-    //         const { status, message } = RESPONSE.SUCCESS;
-    //         const userDomains = await this._userService.getAll();
-    //         // users = mapToDtos(userDOmains)
-    //         const response = new ApiResponse(status, message, userDomains);
-    //         return res.status(status).json(response);
-    //     } catch (e) {
-    //         const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-    //         const response = new ApiResponse(status, message);
+    public getAll = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { status, message } = RESPONSE.SUCCESS;
+            const userDTOs: IUserDTO[] = await this._userService.getAll();
+            // users = mapToDtos(userDOmains)
+            const response = new ApiResponse(status, message, userDTOs);
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, e.message);
 
-    //         return res.status(status).json(response);
-    //     }
-    // }
+            return res.status(status).json(response);
+        }
+    }
 
     // public getById = async (req: Request, res: Response): Promise<any> => {
     //     try {

@@ -8,20 +8,14 @@ class UserService implements IEntityService {
     @inject(CONTRACTS.IEntityModel) private _userModel: IEntityModel;
 
     create = async (userDTO: IUserDTO): Promise<IUserDTO> => {
-        // toDo validate DTO
         const userNew: IUserDTO = await this._userModel.create(userDTO);
         return userNew;
     }
 
-    // getAll = async (): Promise<any> => {
-    //     const usersDB = await UserModel.getAll();
-
-    //     if (process.env.DB_DIALECT === DB_DIALECT.POSTGRES) {
-    //         return usersDB.map(u => mapPGUserToDTO(u));
-    //     }
-
-    //     return usersDB;
-    // }
+    getAll = async (): Promise<IUserDTO[]> => {
+        const userDTOs: IUserDTO[] = await this._userModel.getAll();
+        return userDTOs;
+    }
 
     // getById = async (id: any): Promise<any> => {
     //     const userDB = await UserModel.getById(id);

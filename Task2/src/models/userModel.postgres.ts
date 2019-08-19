@@ -10,18 +10,18 @@ class User implements IEntityModel {
         const userPG = await UserModel.create(userDomain, { plain: true });
         const userCreated: IUserDTO = UserMapper.mapUserPGToUserDTO(userPG);
         return userCreated;
-        // toDo convert to Domain.PG
-        // create in db
-        // consvert result to DTO
-        // return DTO
-        // return await UserModel.create(userDomain);
     }
 
-    // getAll = async () => {
-    //     const usersPG = await UserModel.findAll({ paranoid: false });
-    //     const users = usersPG.map(u => u.get({ plain: true }));
-    //     return users;
-    // }
+    getAll = async (): Promise<IUserDTO[]> => {
+        const usersPG = await UserModel.findAll({ paranoid: false });
+        const usersDTO: IUserDTO[] = usersPG.map((u): IUserDTO => {
+            const userPG = u.get({ plain: true });
+            const userDTO = UserMapper.mapUserPGToUserDTO(userPG);
+            return userDTO;
+        });
+
+        return usersDTO;
+    }
 
     // getById = async (id) => {
     //     const userPG = await UserModel.findByPk(id, { paranoid: false });

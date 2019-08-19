@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.post('/', controller.create);
 
-// router.get('/', userController.getAll);
+router.get('/', controller.getAll);
 
 // router.get('/:id', userController.getById);
 
