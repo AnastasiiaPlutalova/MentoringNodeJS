@@ -1,7 +1,7 @@
-import IUserDomain from './IUserDomain';
+import IUserDTO from './IUserDTO';
 
 interface IEntityModel {
-    create(user: IUserDomain): Promise<any>;
+    create(user: IUserDTO): Promise<IUserDTO>;
     // delete(id: any): Promise<any>;
     // getAll(): Promise<any>;
     // getById(id: any): Promise<any>;

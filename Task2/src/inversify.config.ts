@@ -15,6 +15,7 @@ const UserModel = userModel[dbDialect];
 const container = new Container();
 
 container.bind<IEntityController>(CONTRACTS.IEntityController).to(UserController);
-container.bind<IEntityController>(CONTRACTS.IEntityController).to(UserController);
 container.bind<IEntityService>(CONTRACTS.IEntityService).to(UserService);
 container.bind<IEntityModel>(CONTRACTS.IEntityModel).to(UserModel);
+
+export default container;

@@ -1,15 +1,18 @@
 import express from 'express';
-import { UserController } from '../controllers';
+import container from '../inversify.config';
+import { IEntityController } from '../typing/interfaces';
+import CONTRACTS from '../typing/contracts';
+
+const controller = container.get<IEntityController>(CONTRACTS.IEntityController);
 
 const router = express.Router();
 
-const userController = new UserController();
 
 // router.get('/', userController.getAll);
 
 // router.get('/:id', userController.getById);
 
-router.post('/', userController.create);
+router.post('/', controller.create);
 
 // router.put('/', userController.update);
 

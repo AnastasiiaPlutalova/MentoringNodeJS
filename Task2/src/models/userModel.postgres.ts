@@ -1,9 +1,18 @@
-import UserModel from '../postgres/UserModel';
-import { IEntityModel, IUserDomain } from '../typing/interfaces';
+import { injectable } from 'inversify';
+import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
+import { UserMapper } from '../mapper';
 
+@injectable()
 class User implements IEntityModel {
-    create = async (userDomain: IUserDomain): Promise<any> => {
-        return await UserModel.create(userDomain);
+    create = async (userDTO: IUserDTO): Promise<IUserDTO> => {
+        const userDomain: IUserDomain = UserMapper.mapUserDTOToUserDomain(userDTO);
+
+        return userDTO;
+        // toDo convert to Domain.PG
+        // create in db
+        // consvert result to DTO
+        // return DTO
+        // return await UserModel.create(userDomain);
     }
 
     // getAll = async () => {
@@ -37,4 +46,4 @@ class User implements IEntityModel {
     // }
 }
 
-export default new User();
+export default User;

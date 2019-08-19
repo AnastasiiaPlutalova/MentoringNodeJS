@@ -1,3 +1,4 @@
+import { injectable } from 'inversify';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
@@ -14,6 +15,7 @@ const dir = process.env.FILE_DB_DIR;
 const jsonFile = process.env.USER_JSON;
 const dbPath = path.join(process.cwd(), dir, jsonFile);
 
+@injectable()
 class User implements IEntityModel {
     // getAll = async () => {
     //     const fileData = await readFile(dbPath);
@@ -76,4 +78,4 @@ class User implements IEntityModel {
     // }
 }
 
-export default new User();
+export default User;
