@@ -5,7 +5,7 @@ interface IEntityModel {
     getAll(): Promise<IUserDTO[]>;
     getById(id: string): Promise<IUserDTO>;
     update(userDTO: any): Promise<IUserDTO>;
-    // delete(id: any): Promise<any>;
+    delete(id: string): Promise<void>;
 }
 
 export default IEntityModel;

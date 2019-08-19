@@ -5,7 +5,7 @@ interface IEntityService {
     getAll(): Promise<IUserDTO[]>;
     getById(id: string): Promise<IUserDTO>;
     update(userDTO: IUserDTO): Promise<IUserDTO>;
-    // delete(req: Request, res: Response): Promise<any>;
+    delete(id: string): Promise<void>;
 }
 
 export default IEntityService;

@@ -80,22 +80,22 @@ class UserController implements IEntityController {
         }
     }
 
-    // public delete = async (req: Request, res: Response): Promise<any> => {
-    //     try {
-    //         const { status, message } = RESPONSE.SUCCESS;
-    //         const { id } = req.params;
-    //         const response = new ApiResponse(status, message);
+    public delete = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { status, message } = RESPONSE.SUCCESS;
+            const { id } = req.params;
+            const response = new ApiResponse(status, message);
 
-    //         await this._userService.delete(id);
+            await this._userService.delete(id);
 
-    //         return res.status(status).json(response);
-    //     } catch (e) {
-    //         const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-    //         const response = new ApiResponse(status, message);
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, e.message);
 
-    //         return res.status(status).json(response);
-    //     }
-    // }
+            return res.status(status).json(response);
+        }
+    }
 }
 
 export default UserController;

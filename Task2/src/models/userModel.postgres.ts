@@ -41,11 +41,11 @@ class User implements IEntityModel {
         return userUpdated;
     }
 
-    // delete = async (id) => {
-    //     await UserModel.destroy({
-    //         where: { id }
-    //     });
-    // }
+    delete = async (id: string): Promise<void> => {
+        await UserModel.destroy({
+            where: { id }
+        });
+    }
 }
 
 export default User;

@@ -62,20 +62,18 @@ class User implements IEntityModel {
         throw new Error('User not found');
     }
 
-    // delete = async (id) => {
-    //     const user = await this.getById(id);
-    //     if (user) {
-    //         const users = await this.getAll();
-    //         const index = users.findIndex(u => u.id === id);
-    //         users[index].isDeleted = true;
+    delete = async (id): Promise<void> => {
+        const user = await this.getById(id);
+        if (user) {
+            const users = await this.getAll();
+            const index = users.findIndex(u => u.id === id);
+            users[index].isDeleted = true;
 
-    //         await writeFile(dbPath, JSON.stringify(users));
+            await writeFile(dbPath, JSON.stringify(users));
+        }
 
-    //         return users[index];
-    //     }
-
-    //     throw new Error('User not found');
-    // }
+        throw new Error('User not found');
+    }
 }
 
 export default User;

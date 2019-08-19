@@ -27,9 +27,9 @@ class UserService implements IEntityService {
         return userUpdated;
     }
 
-    // delete = async (id: any): Promise<any> => {
-    //     await UserModel.delete(id);
-    // }
+    delete = async (id: any): Promise<any> => {
+        await this._userModel.delete(id);
+    }
 }
 
 export default UserService;
