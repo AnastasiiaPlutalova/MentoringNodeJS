@@ -11,8 +11,7 @@ router.post('/', controller.create);
 
 router.get('/', controller.getAll);
 
-// router.get('/:id', userController.getById);
-
+router.get('/:id', controller.getById);
 
 // router.put('/', userController.update);
 

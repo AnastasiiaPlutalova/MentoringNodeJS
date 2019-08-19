@@ -43,26 +43,26 @@ class UserController implements IEntityController {
         }
     }
 
-    // public getById = async (req: Request, res: Response): Promise<any> => {
-    //     try {
-    //         const { id } = req.params;
-    //         const user = await this._userService.getById(id);
-    //         if (user) {
-    //             const { status, message } = RESPONSE.SUCCESS;
-    //             const response = new ApiResponse(status, message, user);
-    //             return res.status(status).json(response);
-    //         }
+    public getById = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { id } = req.params;
+            const user = await this._userService.getById(id);
+            if (user) {
+                const { status, message } = RESPONSE.SUCCESS;
+                const response = new ApiResponse(status, message, user);
+                return res.status(status).json(response);
+            }
 
-    //         const { status, message } = RESPONSE.NOT_FOUND;
-    //         const response = new ApiResponse(status, message);
-    //         return res.status(status).json(response);
-    //     } catch (e) {
-    //         const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-    //         const response = new ApiResponse(status, message);
+            const { status, message } = RESPONSE.NOT_FOUND;
+            const response = new ApiResponse(status, message);
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, message);
 
-    //         return res.status(status).json(response);
-    //     }
-    // }
+            return res.status(status).json(response);
+        }
+    }
 
     // public update = async (req: Request, res: Response): Promise<any> => {
     //     try {

@@ -23,11 +23,11 @@ class User implements IEntityModel {
         return usersDTO;
     }
 
-    // getById = async (id) => {
-    //     const userPG = await UserModel.findByPk(id, { paranoid: false });
-    //     const user = userPG.get({ plain: true });
-    //     return user;
-    // }
+    getById = async (id: string): Promise<IUserDTO> => {
+        const userPG = await UserModel.findByPk(id, { paranoid: false });
+        const userDTO = UserMapper.mapUserPGToUserDTO(userPG.get({ plain: true }));
+        return userDTO;
+    }
 
     // update = async (userDTO) => {
     //     const userPG = await UserModel.update(
