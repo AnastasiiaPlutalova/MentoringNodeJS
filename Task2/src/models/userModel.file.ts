@@ -1,8 +1,10 @@
+import { injectable } from 'inversify';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
+import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
 
 dotenv.config();
 
@@ -13,24 +15,26 @@ const dir = process.env.FILE_DB_DIR;
 const jsonFile = process.env.USER_JSON;
 const dbPath = path.join(process.cwd(), dir, jsonFile);
 
-class User {
-    getAll = async () => {
+@injectable()
+class User implements IEntityModel {
+    getAll = async (): Promise<IUserDTO[]> => {
         const fileData = await readFile(dbPath);
-        const users = JSON.parse(fileData);
+        const users = JSON.parse(fileData.toString());
         return users;
     }
 
-    getById = async (id) => {
+    getById = async (id: string): Promise<IUserDTO> => {
         const users = await this.getAll();
         const user = users.find(u => u.id === id);
         return user;
     }
 
-    create = async (newUser) => {
-        const users = await this.getAll();
+    create = async (userDomain: IUserDomain): Promise<any> => {
+        const users = [];
+        // const users = await this.getAll();
         const id = uuidv4();
         const user = {
-            ...newUser,
+            ...userDomain,
             id
         };
 
@@ -42,7 +46,7 @@ class User {
     }
 
     update = async (updateUser) => {
-        const user = await this.getUserById(updateUser.id);
+        const user = await this.getById(updateUser.id);
         if (user) {
             const users = await this.getAll();
             const index = users.findIndex(u => u.id === updateUser.id);
@@ -58,20 +62,18 @@ class User {
         throw new Error('User not found');
     }
 
-    delete = async (id) => {
-        const user = await this.getUserById(id);
+    delete = async (id): Promise<void> => {
+        const user = await this.getById(id);
         if (user) {
             const users = await this.getAll();
             const index = users.findIndex(u => u.id === id);
             users[index].isDeleted = true;
 
             await writeFile(dbPath, JSON.stringify(users));
-
-            return users[index];
         }
 
         throw new Error('User not found');
     }
 }
 
-export default new User();
+export default User;

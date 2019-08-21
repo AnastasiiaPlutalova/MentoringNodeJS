@@ -1,6 +1,10 @@
 {
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "plugins": [
+        "@typescript-eslint",
+    ],
+    "extends": [
+        "plugin:@typescript-eslint/recommended",
     ],
     "env": {
         "browser": true,
@@ -24,12 +28,28 @@
             "objectLiteralShorthandMethods": true,
             "objectLiteralShorthandProperties": true,
             "restParams": true,
+            "sourceType": "module",
             "spread": true,
             "superInFunctions": true,
             "templateStrings": true,
         }
     },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    },
     "rules": {
+        "@typescript-eslint/explicit-member-accessibility": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/interface-name-prefix": 0,
         "no-debugger": 1,
         // Possible errors
         "comma-dangle": [
@@ -80,7 +100,7 @@
             2,
             {
                 "allowKeywords": true,
-                "allowPattern": "^([a-z]+(_[a-z]+)+)|[A-Z]+|[A-Z]{1}[a-z]+$" 
+                "allowPattern": "^([a-z]+(_[a-z]+)+)|[A-Z]+|[A-Z]{1}[a-z]+$"
             }
         ],
         "eqeqeq": 2,
@@ -162,7 +182,7 @@
         "no-shadow-restricted-names": 2,
         "no-shadow": 2,
         "no-undef-init": 2,
-        "no-undef": 2,
+        "no-undef": 1,
         "no-unused-vars": 2,
         // Node.js
         "callback-return": 2,
@@ -306,7 +326,6 @@
                 ]
             }
         ],
-
         // Legacy
         "max-depth": [
             0,

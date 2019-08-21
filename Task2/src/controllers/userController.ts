@@ -1,42 +1,52 @@
-import { ApiResponse, mapBodyToUser } from '../entities';
-import { UserService } from '../services';
+import { injectable, inject } from 'inversify';
+import { Request, Response } from 'express';
+import { ApiResponse } from '../entities';
 import { RESPONSE } from '../common/constants';
+import { IEntityController, IUserDTO } from '../typing/interfaces';
+import { UserMapper } from '../mapper';
+import CONTRACTS from '../typing/contracts';
+import IEntityService from '../typing/interfaces/IEntityService';
 
-class UserController {
-    create = async (req, res) => {
+@injectable()
+class UserController implements IEntityController {
+    @inject(CONTRACTS.IEntityService) private _userService: IEntityService;
+
+    public create = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
-            const user = mapBodyToUser(req.body);
-            const newUser = await UserService.create(user);
-            const response = new ApiResponse(status, message, newUser);
+
+            const userDTO: IUserDTO = UserMapper.mapReqBodyToUserDTO(req.body);
+            const userNew: IUserDTO = await this._userService.create(userDTO);
+            const response = new ApiResponse(status, message, userNew);
 
             return res.status(status).json(response);
         } catch (e) {
             const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-            const response = new ApiResponse(status, message);
+            const response = new ApiResponse(status, e.message);
 
             return res.status(status).json(response);
         }
     }
 
-    getAll = async (req, res) => {
+    public getAll = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
-            const users = await UserService.getAll();
-            const response = new ApiResponse(status, message, users);
+            const userDTOs: IUserDTO[] = await this._userService.getAll();
+            // users = mapToDtos(userDOmains)
+            const response = new ApiResponse(status, message, userDTOs);
             return res.status(status).json(response);
         } catch (e) {
             const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-            const response = new ApiResponse(status, message);
+            const response = new ApiResponse(status, e.message);
 
             return res.status(status).json(response);
         }
     }
 
-    getById = async (req, res) => {
+    public getById = async (req: Request, res: Response): Promise<any> => {
         try {
             const { id } = req.params;
-            const user = await UserService.getById(id);
+            const user = await this._userService.getById(id);
             if (user) {
                 const { status, message } = RESPONSE.SUCCESS;
                 const response = new ApiResponse(status, message, user);
@@ -54,38 +64,38 @@ class UserController {
         }
     }
 
-    update = async (req, res) => {
+    public update = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
-            const user = mapBodyToUser(req.body);
-            const updatedUser = await UserService.update(user);
+            const user = UserMapper.mapReqBodyToUserDTO(req.body);
+            const updatedUser = await this._userService.update(user);
             const response = new ApiResponse(status, message, updatedUser);
 
             return res.status(status).json(response);
         } catch (e) {
             const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-            const response = new ApiResponse(status, message);
+            const response = new ApiResponse(status, e.message);
 
             return res.status(status).json(response);
         }
     }
 
-    delete = async (req, res) => {
+    public delete = async (req: Request, res: Response): Promise<any> => {
         try {
             const { status, message } = RESPONSE.SUCCESS;
             const { id } = req.params;
             const response = new ApiResponse(status, message);
 
-            await UserService.delete(id);
+            await this._userService.delete(id);
 
             return res.status(status).json(response);
         } catch (e) {
             const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-            const response = new ApiResponse(status, message);
+            const response = new ApiResponse(status, e.message);
 
             return res.status(status).json(response);
         }
     }
 }
 
-export default new UserController();
+export default UserController;

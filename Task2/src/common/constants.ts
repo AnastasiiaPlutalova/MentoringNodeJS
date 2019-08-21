@@ -1,3 +1,4 @@
+
 export const DB_DIALECT = {
     POSTGRES: 'postgres',
     FILE: 'file'

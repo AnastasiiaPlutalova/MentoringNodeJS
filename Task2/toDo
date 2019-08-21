@@ -1,0 +1,2 @@
+add response to type or interface
+find out returning type for   return res.status(status).json(response);
