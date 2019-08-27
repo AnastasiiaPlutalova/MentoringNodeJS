@@ -5,25 +5,25 @@ import CONTRACTS from '../typing/contracts';
 
 @injectable()
 class UserService implements IEntityService {
-    @inject(CONTRACTS.IEntityModel) private _userModel: IEntityModel;
+    @inject(CONTRACTS.UserModel) private _userModel: IEntityModel;
 
     create = async (userDTO: IUserDTO): Promise<IUserDTO> => {
-        const userNew: IUserDTO = await this._userModel.create(userDTO);
+        const userNew: IUserDTO = await this._userModel.create(userDTO) as IUserDTO;
         return userNew;
     }
 
     getAll = async (): Promise<IUserDTO[]> => {
-        const userDTOs: IUserDTO[] = await this._userModel.getAll();
+        const userDTOs: IUserDTO[] = await this._userModel.getAll() as IUserDTO[];
         return userDTOs;
     }
 
     getById = async (id: string): Promise<IUserDTO> => {
-        const userDTO = await this._userModel.getById(id);
+        const userDTO = await this._userModel.getById(id) as IUserDTO;
         return userDTO;
     }
 
     update = async (userDTO: IUserDTO): Promise<any> => {
-        const userUpdated = await this._userModel.update(userDTO);
+        const userUpdated: IUserDTO = await this._userModel.update(userDTO) as IUserDTO;
         return userUpdated;
     }
 

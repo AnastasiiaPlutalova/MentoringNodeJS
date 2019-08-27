@@ -3,7 +3,7 @@ import container from '../inversify.config';
 import { IEntityController } from '../typing/interfaces';
 import CONTRACTS from '../typing/contracts';
 
-const controller = container.get<IEntityController>(CONTRACTS.UserController);
+const controller = container.get<IEntityController>(CONTRACTS.GroupController);
 
 const router = express.Router();
 

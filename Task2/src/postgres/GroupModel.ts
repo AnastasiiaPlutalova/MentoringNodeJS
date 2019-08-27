@@ -1,28 +1,24 @@
 import Sequelize from 'sequelize';
 import sequelize from './db-connection';
 
-const User = sequelize.define('user', {
+const User = sequelize.define('group', {
     id: {
         type: Sequelize.UUIDV4,
         allowNull: false,
         primaryKey: true
     },
-    login: {
+    name: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    password: {
+    permissions: {
         type: Sequelize.STRING,
-        allowNull: false
-    },
-    age: {
-        type: Sequelize.NUMBER,
         allowNull: false
     }
 },
 {
-    timestamps: true,
-    paranoid: true,
+    timestamps: false,
+    paranoid: false,
     underscored: true
 });
 

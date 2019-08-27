@@ -1,10 +1,10 @@
-import IUserDTO from './IUserDTO';
+import IDTO from './IDTO';
 
 interface IEntityService {
-    create(userDTO: IUserDTO): Promise<IUserDTO>;
-    getAll(): Promise<IUserDTO[]>;
-    getById(id: string): Promise<IUserDTO>;
-    update(userDTO: IUserDTO): Promise<IUserDTO>;
+    create(dto: IDTO): Promise<IDTO>;
+    getAll(): Promise<IDTO[]>;
+    getById(id: string): Promise<IDTO>;
+    update(userDTO: IDTO): Promise<IDTO>;
     delete(id: string): Promise<void>;
 }
 

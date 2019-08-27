@@ -1,5 +1,6 @@
-interface IUserDTO {
-    id?: string;
+import { IDTO } from '.';
+
+interface IUserDTO extends IDTO {
     login: string;
     password?: string;
     age: number;
