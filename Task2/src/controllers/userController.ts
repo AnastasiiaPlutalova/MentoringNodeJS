@@ -58,7 +58,7 @@ class UserController implements IEntityController {
             return res.status(status).json(response);
         } catch (e) {
             const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
-            const response = new ApiResponse(status, message);
+            const response = new ApiResponse(status, e.message);
 
             return res.status(status).json(response);
         }

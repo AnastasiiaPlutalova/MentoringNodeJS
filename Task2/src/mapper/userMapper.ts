@@ -1,5 +1,6 @@
 import uuidv4 from 'uuid/v4';
 import { IUserDTO, IUserDomain } from '../typing/interfaces';
+import GroupMapper from './groupMapper';
 
 class UserMapper {
     static mapReqBodyToUserDTO(body: any): IUserDTO {
@@ -34,7 +35,8 @@ class UserMapper {
             id: userPG.id,
             login: userPG.login,
             age: userPG.age,
-            isDeleted: !!userPG.deletedAt
+            isDeleted: !!userPG.deletedAt,
+            groups: userPG.groups.map(g => GroupMapper.mapGroupPGToGroupDTO(g))
         };
 
         return userDTO;

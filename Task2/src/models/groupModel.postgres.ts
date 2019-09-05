@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { IEntityModel, IGroupDomain, IGroupDTO } from '../typing/interfaces';
 import { GroupMapper } from '../mapper';
-import GroupModel from '../postgres/GroupModel';
+import { GroupModel } from '../postgres/db-connection';
 
 @injectable()
 class Group implements IEntityModel {
@@ -30,10 +30,11 @@ class Group implements IEntityModel {
     }
 
     update = async (groupDTO: IGroupDTO): Promise<IGroupDTO> => {
+        const groupDomain: IGroupDomain = GroupMapper.mapGroupDTOToGroupDomain(groupDTO);
         const groupPG = await GroupModel.update(
-            groupDTO,
+            groupDomain,
             {
-                where: { id: groupDTO.id },
+                where: { id: groupDomain.id },
                 returning: true,
                 plain: true
             });

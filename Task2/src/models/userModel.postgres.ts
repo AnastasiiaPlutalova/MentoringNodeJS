@@ -1,7 +1,7 @@
 import { injectable } from 'inversify';
 import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
 import { UserMapper } from '../mapper';
-import UserModel from '../postgres/UserModel';
+import { UserModel, GroupModel } from '../postgres/db-connection';
 
 @injectable()
 class User implements IEntityModel {
@@ -13,7 +13,15 @@ class User implements IEntityModel {
     }
 
     getAll = async (): Promise<IUserDTO[]> => {
-        const usersPG = await UserModel.findAll({ paranoid: false });
+        const usersPG = await UserModel.findAll(
+            {
+                paranoid: false,
+                include: [
+                    { model: GroupModel, as: 'groups', attributes: ['id', 'name', 'permissions'] }
+                ]
+            }
+        );
+
         const usersDTO: IUserDTO[] = usersPG.map((u): IUserDTO => {
             const userPG = u.get({ plain: true });
             const userDTO = UserMapper.mapUserPGToUserDTO(userPG);
@@ -24,7 +32,13 @@ class User implements IEntityModel {
     }
 
     getById = async (id: string): Promise<IUserDTO> => {
-        const userPG = await UserModel.findByPk(id, { paranoid: false });
+        const userPG = await UserModel.findByPk(id,
+            {
+                paranoid: false,
+                include: [
+                    { model: GroupModel, as: 'groups', attributes: ['id', 'name', 'permissions'] }
+                ]
+            });
         const userDTO = UserMapper.mapUserPGToUserDTO(userPG.get({ plain: true }));
         return userDTO;
     }
