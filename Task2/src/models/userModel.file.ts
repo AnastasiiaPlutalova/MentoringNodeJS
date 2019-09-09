@@ -4,7 +4,7 @@ import path from 'path';
 import util from 'util';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
-import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
+import { IUserModel, IUserDomain, IUserDTO } from '../typing/interfaces';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ const jsonFile = process.env.USER_JSON;
 const dbPath = path.join(process.cwd(), dir, jsonFile);
 
 @injectable()
-class User implements IEntityModel {
+class User implements IUserModel {
     getAll = async (): Promise<IUserDTO[]> => {
         const fileData = await readFile(dbPath);
         const users = JSON.parse(fileData.toString());
@@ -73,6 +73,10 @@ class User implements IEntityModel {
         }
 
         throw new Error('User not found');
+    }
+
+    addUsersToGroup = async (user_id: string, group_id: string): Promise<void> => {
+
     }
 }
 

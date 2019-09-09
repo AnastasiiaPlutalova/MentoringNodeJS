@@ -2,14 +2,13 @@ import { injectable, inject } from 'inversify';
 import { Request, Response } from 'express';
 import { ApiResponse } from '../entities';
 import { RESPONSE } from '../common/constants';
-import { IEntityController, IUserDTO } from '../typing/interfaces';
+import { IUserController, IUserDTO, IUserService } from '../typing/interfaces';
 import { UserMapper } from '../mapper';
 import CONTRACTS from '../typing/contracts';
-import IEntityService from '../typing/interfaces/IEntityService';
 
 @injectable()
-class UserController implements IEntityController {
-    @inject(CONTRACTS.UserService) private _userService: IEntityService;
+class UserController implements IUserController {
+    @inject(CONTRACTS.UserService) private _userService: IUserService;
 
     public create = async (req: Request, res: Response): Promise<any> => {
         try {
@@ -87,6 +86,23 @@ class UserController implements IEntityController {
             const response = new ApiResponse(status, message);
 
             await this._userService.delete(id);
+
+            return res.status(status).json(response);
+        } catch (e) {
+            const { status, message } = RESPONSE.INTERNAL_SERVER_ERROR;
+            const response = new ApiResponse(status, e.message);
+
+            return res.status(status).json(response);
+        }
+    }
+
+    public addUsersToGroup = async (req: Request, res: Response): Promise<any> => {
+        try {
+            const { status, message } = RESPONSE.SUCCESS;
+            const response = new ApiResponse(status, message);
+            const { user_id, group_id } = req.params;
+
+            await this._userService.addUsersToGroup(user_id, group_id);
 
             return res.status(status).json(response);
         } catch (e) {

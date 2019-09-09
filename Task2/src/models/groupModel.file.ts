@@ -4,7 +4,7 @@ import path from 'path';
 import util from 'util';
 import dotenv from 'dotenv';
 import uuidv4 from 'uuid/v4';
-import { IEntityModel, IGroupDomain, IGroupDTO } from '../typing/interfaces';
+import { IGroupModel, IGroupDTO } from '../typing/interfaces';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ const jsonFile = process.env.USER_JSON;
 const dbPath = path.join(process.cwd(), dir, jsonFile);
 
 @injectable()
-class Group implements IEntityModel {
+class Group implements IGroupModel {
     getAll = async (): Promise<IGroupDTO[]> => {
         const fileData = await readFile(dbPath);
         const groups = JSON.parse(fileData.toString());
@@ -29,7 +29,7 @@ class Group implements IEntityModel {
         return group;
     }
 
-    create = async (groupDomain: IGroupDomain): Promise<any> => {
+    create = async (groupDomain: IGroupDTO): Promise<any> => {
         const groups = [];
         // const groups = await this.getAll();
         const id = uuidv4();

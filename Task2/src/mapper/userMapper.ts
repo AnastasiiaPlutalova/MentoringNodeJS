@@ -36,7 +36,7 @@ class UserMapper {
             login: userPG.login,
             age: userPG.age,
             isDeleted: !!userPG.deletedAt,
-            groups: userPG.groups.map(g => GroupMapper.mapGroupPGToGroupDTO(g))
+            groups: userPG.groups ? userPG.groups.map(g => GroupMapper.mapGroupPGToGroupDTO(g)) : []
         };
 
         return userDTO;

@@ -1,11 +1,11 @@
 import { injectable, inject } from 'inversify';
-import { IGroupDTO, IEntityModel } from '../typing/interfaces';
-import IEntityService from '../typing/interfaces/IEntityService';
+import { IGroupDTO, IGroupModel } from '../typing/interfaces';
+import { IGroupService } from '../typing/interfaces';
 import CONTRACTS from '../typing/contracts';
 
 @injectable()
-class GroupService implements IEntityService {
-    @inject(CONTRACTS.GroupModel) private _groupModel: IEntityModel;
+class GroupService implements IGroupService {
+    @inject(CONTRACTS.GroupModel) private _groupModel: IGroupModel;
 
     create = async (groupDTO: IGroupDTO): Promise<IGroupDTO> => {
         const groupNew: IGroupDTO = await this._groupModel.create(groupDTO) as IGroupDTO;

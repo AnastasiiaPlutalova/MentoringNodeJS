@@ -1,6 +1,5 @@
-import { IDTO } from '.';
-
-interface IGroupDTO extends IDTO {
+interface IGroupDTO {
+    id?: string;
     name: string;
     permissions: Permission[];
 }

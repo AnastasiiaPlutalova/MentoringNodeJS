@@ -1,8 +1,10 @@
-export { default as IEntityController } from './IEntityController';
-export { default as IEntityService } from './IEntityService';
-export { default as IEntityModel } from './IEntityModel';
+export { default as IGroupController } from './IGroupController';
+export { default as IGroupService } from './IGroupService';
+export { default as IGroupModel } from './IGroupModel';
 export { default as IUserDTO } from './IUserDTO';
 export { default as IGroupDTO } from './IGroupDTO';
 export { default as IUserDomain } from './IUserDomain';
 export { default as IGroupDomain } from './IGroupDomain';
-export { default as IDTO } from './IDTO';
+export { default as IUserController } from './IUserController';
+export { default as IUserService } from './IUserService';
+export { default as IUserModel } from './IUserModel';

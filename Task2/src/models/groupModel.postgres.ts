@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
-import { IEntityModel, IGroupDomain, IGroupDTO } from '../typing/interfaces';
+import { IGroupModel, IGroupDomain, IGroupDTO } from '../typing/interfaces';
 import { GroupMapper } from '../mapper';
 import { GroupModel } from '../postgres/db-connection';
 
 @injectable()
-class Group implements IEntityModel {
+class Group implements IGroupModel {
     create = async (groupDTO: IGroupDTO): Promise<IGroupDTO> => {
         const groupDomain: IGroupDomain = GroupMapper.mapGroupDTOToGroupDomain(groupDTO);
         const groupPG = await GroupModel.create(groupDomain, { plain: true });

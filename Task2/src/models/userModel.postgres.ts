@@ -1,10 +1,10 @@
 import { injectable } from 'inversify';
-import { IEntityModel, IUserDomain, IUserDTO } from '../typing/interfaces';
+import { IUserModel, IUserDomain, IUserDTO } from '../typing/interfaces';
 import { UserMapper } from '../mapper';
-import { UserModel, GroupModel } from '../postgres/db-connection';
+import { UserModel, GroupModel, UserGroupModel, sequelize } from '../postgres/db-connection';
 
 @injectable()
-class User implements IEntityModel {
+class User implements IUserModel {
     create = async (userDTO: IUserDTO): Promise<IUserDTO> => {
         const userDomain: IUserDomain = UserMapper.mapUserDTOToUserDomain(userDTO);
         const userPG = await UserModel.create(userDomain, { plain: true });
@@ -58,6 +58,13 @@ class User implements IEntityModel {
     delete = async (id: string): Promise<void> => {
         await UserModel.destroy({
             where: { id }
+        });
+    }
+
+    addUsersToGroup = async (user_id: string, group_id: string): Promise<void> => {
+        await sequelize.transaction(t => {
+            return UserGroupModel.create({ user_id, group_id }, { transaction: t });
+            // toDo then with some success/fail ?
         });
     }
 }

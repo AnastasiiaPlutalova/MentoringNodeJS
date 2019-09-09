@@ -1,11 +1,11 @@
-import { IDTO, IGroupDTO } from '.';
+import { IGroupDTO } from '.';
 
-interface IUserDTO extends IDTO {
+interface IUserDTO {
+    id?: string;
     login: string;
     password?: string;
     age: number;
     isDeleted: boolean;
-    // toDo type for groups
     groups?: IGroupDTO[];
 }
 

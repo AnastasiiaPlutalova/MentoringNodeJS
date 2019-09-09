@@ -1,9 +1,9 @@
 import express from 'express';
 import container from '../inversify.config';
-import { IEntityController } from '../typing/interfaces';
+import { IGroupController } from '../typing/interfaces';
 import CONTRACTS from '../typing/contracts';
 
-const controller = container.get<IEntityController>(CONTRACTS.GroupController);
+const controller = container.get<IGroupController>(CONTRACTS.GroupController);
 
 const router = express.Router();
 

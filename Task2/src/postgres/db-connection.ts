@@ -6,7 +6,7 @@ const { POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_HOST, DB_DIALECT
 
 const CONNECTION_STR = `${DB_DIALECT}://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}/${POSTGRES_DB}`;
 
-const sequelize: any = new Sequelize.Sequelize(CONNECTION_STR);
+export const sequelize: any = new Sequelize.Sequelize(CONNECTION_STR);
 
 const User = sequelize.define('user', {
     id: {

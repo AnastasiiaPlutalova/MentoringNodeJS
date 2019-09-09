@@ -2,14 +2,14 @@ import { injectable, inject } from 'inversify';
 import { Request, Response } from 'express';
 import { ApiResponse } from '../entities';
 import { RESPONSE } from '../common/constants';
-import { IEntityController, IGroupDTO } from '../typing/interfaces';
+import { IGroupController, IGroupDTO } from '../typing/interfaces';
 import { GroupMapper } from '../mapper';
 import CONTRACTS from '../typing/contracts';
-import IEntityService from '../typing/interfaces/IEntityService';
+import { IGroupService } from '../typing/interfaces';
 
 @injectable()
-class GroupController implements IEntityController {
-    @inject(CONTRACTS.GroupService) private _groupService: IEntityService;
+class GroupController implements IGroupController {
+    @inject(CONTRACTS.GroupService) private _groupService: IGroupService;
 
     public create = async (req: Request, res: Response): Promise<any> => {
         try {

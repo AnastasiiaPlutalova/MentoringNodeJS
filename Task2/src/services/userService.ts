@@ -1,11 +1,10 @@
 import { injectable, inject } from 'inversify';
-import { IUserDTO, IEntityModel } from '../typing/interfaces';
-import IEntityService from '../typing/interfaces/IEntityService';
+import { IUserDTO, IUserModel, IUserService } from '../typing/interfaces';
 import CONTRACTS from '../typing/contracts';
 
 @injectable()
-class UserService implements IEntityService {
-    @inject(CONTRACTS.UserModel) private _userModel: IEntityModel;
+class UserService implements IUserService {
+    @inject(CONTRACTS.UserModel) private _userModel: IUserModel;
 
     create = async (userDTO: IUserDTO): Promise<IUserDTO> => {
         const userNew: IUserDTO = await this._userModel.create(userDTO) as IUserDTO;
@@ -29,6 +28,10 @@ class UserService implements IEntityService {
 
     delete = async (id: any): Promise<any> => {
         await this._userModel.delete(id);
+    }
+
+    addUsersToGroup = async (user_id: string, group_id: string): Promise<void> => {
+        await this._userModel.addUsersToGroup(user_id, group_id);
     }
 }
 
